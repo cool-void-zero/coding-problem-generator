@@ -1,0 +1,3 @@
+1. generate the tips of above coding problem and how to solve it step by step.
+2. use ${humen_language} in "ISO 639-1" or ${humen_language} country language to direct generate your tips, 
+   not need to restate the coding problem, such like description, example and constraints.
