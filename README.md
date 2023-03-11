@@ -1,5 +1,6 @@
 ## Introduction
-- Used "GPT-3.5" and "TelegramBot" API to simulate LeetCode generate coding problem.
+This program used "GPT-3.5" and "TelegramBot" API to simulate LeetCode generate coding problem 
+and provide tips and solution (specify programming language).
 - Need to provide "OpenAI API KEY" and "TelegramBot TOKEN" in "config.json" file for run this program.
 - Split the "generate", "tips", and "solution" template content in the template folder (for GPT role of system or user).
 
