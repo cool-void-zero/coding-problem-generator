@@ -1,0 +1,9 @@
+{
+    "openai_api_key": "YOUR_API_KEY", 
+    "telegram_token": "YOUR_TOKEN",
+    "template_path": {
+        "generate": "./template/generate.txt", 
+        "tips": "./template/tips.txt", 
+        "solution": "./template/solution.txt"
+    }
+}
