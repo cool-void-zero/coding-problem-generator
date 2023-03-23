@@ -72,6 +72,10 @@ class ProblemGenerator{
     }
 
     solution = async({ problem, programming_language = "random" }) => {
+        console.log(`problem: ${problem}`);
+        console.log(`process solution...`);
+        
+
         return new Promise(async (resolve, reject) => {
             try {
                 const completion = await this.openai.createChatCompletion({

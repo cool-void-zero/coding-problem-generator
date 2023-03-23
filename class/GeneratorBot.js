@@ -4,6 +4,21 @@ const TelegramBot = require('node-telegram-bot-api');
 const { ProblemGenerator } = require("./ProblemGenerator");
 
 class GeneratorBot{
+	//	telegram bot default main menu keyboard
+	configMenuKeyboard({
+		keyboard = [], 
+		resize_keyboard = true, 
+		one_time_keyboard = true,
+	}){
+		return  {
+			reply_markup: {
+				keyboard: keyboard,
+				resize_keyboard: resize_keyboard,
+				one_time_keyboard: one_time_keyboard,
+			},
+		};
+	}
+
   	constructor({ 
 		openai_api_key, telegram_token, template, 
 		data_path, data, statistic_path, statistic = {
@@ -22,6 +37,13 @@ class GeneratorBot{
 		//	split statistic value
 		this.statistic_path = statistic_path;
 		this.statistic = statistic;
+		
+		this.menu_keyboard = this.configMenuKeyboard({
+			keyboard: [
+				['/easy', '/medium', '/hard', '/random'], 
+				['/tips', '/solution', '/help']
+			]
+		});
 
 		//	listen telegram, user sent message
 		this.bot.on('message', (user_msg) => {
@@ -69,18 +91,20 @@ class GeneratorBot{
 					3b. [Optional] set specify programming language, ex: "/solution#javascript", "/solution#java".
 					--------------------------------------------------
 				`;
+
+				/*
 				const options = {
 					reply_markup: {
-						keyboard: [
-							['/easy', '/medium', '/hard', '/random'], 
-							['/tips', '/solution', '/help']
-						],
+						keyboard: this.keyboard,
 						resize_keyboard: true,
 						one_time_keyboard: true,
 					},
 				};
 
 				this.bot.sendMessage(user_chat_id, start_msg, options);
+				*/
+
+				this.bot.sendMessage(user_chat_id, start_msg, this.menu_keyboard);
 			}
 			//	help, show command list
 			else if(user_cmd === "/help"){
@@ -97,7 +121,7 @@ class GeneratorBot{
 					/help - Help of the command list.
 				`;
 
-				this.bot.sendMessage(user_chat_id, help_msg);
+				this.bot.sendMessage(user_chat_id, help_msg, this.menu_keyboard);
 			}
 			//	tips of problem
 			else if(user_cmd.includes("/tips")){
@@ -125,7 +149,7 @@ class GeneratorBot{
 						problem: problem, 
 						humen_language: humen_language, 
 					})
-					.then(tips => this.bot.sendMessage(user_chat_id, tips))
+					.then(tips => this.bot.sendMessage(user_chat_id, tips, this.menu_keyboard))
 					.catch(err => {
 						console.error(err);
 
@@ -147,7 +171,7 @@ class GeneratorBot{
 					let problem = "";
 					
 					//	not specify "message_id"
-					if(user_cmd === "/solution")
+					if(!user_cmd.includes('_'))
 						problem = queue[queue.length - 1]['text'];
 					//	can expected specify "message_id"
 					else{
@@ -162,7 +186,7 @@ class GeneratorBot{
 						problem: problem, 
 						programming_language: programming_language, 
 					})
-					.then(solution => this.bot.sendMessage(user_chat_id, solution))
+					.then(solution => this.bot.sendMessage(user_chat_id, solution, this.menu_keyboard))
 					.catch(err => {
 						console.error(err);
 
@@ -215,15 +239,20 @@ class GeneratorBot{
 					}
 
 					//	interactive commands
+					const options = this.configMenuKeyboard({
+						keyboard: [['/tips', '/solution']]
+					});
+					/*
 					const options = {
 						reply_markup: {
 							keyboard: [
-								[`/tips_${message_id}`, `/solution_${message_id}`], 
+								[`/tips`, `/solution`], 
 							],
 							resize_keyboard: true,
 							one_time_keyboard: true,
 						},
 					}
+					*/
 
 					this.bot.sendMessage(user_chat_id, `You can click below command for tips or solution: 
 						"/tips_${message_id}", "/solution_${message_id}"

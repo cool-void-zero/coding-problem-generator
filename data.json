@@ -1,7 +1,13 @@
 {
   "queues": [
     [
-      
+      "cool_void_zero",
+      [
+        {
+          "id": 400,
+          "text": "【Difficult】 Hard\n【Tag】 None\n\n【Description】\nYou are given an integer array nums of length n, where each element is a distinct integer in the range [1, n]. You are also given an integer array index of length n. The index array is a permutation of the integers in the range [0, n - 1]. For each i from 0 to n - 1, write a binary tree node structure with value nums[i] and index index[i]. You should concatenate the structure in mid-order. Return the resulting concatenated binary tree.\n\nThe concatenation must be done in the following way:\n\nThe left child of a node x is at index 2 * x + 1.\nThe right child of a node x is at index 2 * x + 2.\nThe concatenation of two trees is done by setting the right child of the last node of the left tree to the root node of the right tree.\nMore formally, we are concatenating the trees nums[index[i]] and nums[index[i + 1]] into a new tree and then replacing the node nums[index[i]] with the root node of the new tree.\n\nReturn the concatenated binary tree.\n\n【Example 1】\nInput: nums = [1,2,3,4,5], index = [3,2,4,1,0]\nOutput: [5,2,4,null,1,null,3,null,null,null,null,null,null]\nExplanation: The binary tree from nums[index[0]] = 4 is shown.\n             4\n               / \\\n              5   2\n               / \\\n              1   3\nThe concatenation of the binary trees is shown.\n              5\n             / \\\n               4   2\n               / \\\n              1   3\n\n【Example 2】\nInput: nums = [1], index = [0]\nOutput: [1]\n\n【Constraints】\n- n == nums.length == index.length\n- 1 <= n <= 10^3\n- 1 <= nums[i] <= n\n- All the numbers of nums are unique.\n- index is a permutation of the numbers in the range [0, n - 1]."
+        }
+      ]
     ]
   ],
   "queue_limit": 5
