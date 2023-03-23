@@ -94,18 +94,6 @@ class GeneratorBot{
 					This bot will collect your "username" and your "commands" for statistics and analysis.
 				`;
 
-				/*
-				const options = {
-					reply_markup: {
-						keyboard: this.keyboard,
-						resize_keyboard: true,
-						one_time_keyboard: true,
-					},
-				};
-
-				this.bot.sendMessage(user_chat_id, start_msg, options);
-				*/
-
 				this.bot.sendMessage(user_chat_id, start_msg, this.menu_keyboard);
 			}
 			//	help, show command list
@@ -134,9 +122,9 @@ class GeneratorBot{
 				if(this.user_map.has(username)){
 					const queue = this.user_map.get(username);
 					let problem = "";
-
+					
 					//	not specify "message_id"
-					if(user_cmd === "/tips")
+					if(!user_cmd.includes("_"))
 						problem = queue[queue.length - 1]['text'];
 					//	can expected specify "message_id"
 					else{
@@ -244,18 +232,7 @@ class GeneratorBot{
 					const options = this.configMenuKeyboard({
 						keyboard: [['/tips', '/solution']]
 					});
-					/*
-					const options = {
-						reply_markup: {
-							keyboard: [
-								[`/tips`, `/solution`], 
-							],
-							resize_keyboard: true,
-							one_time_keyboard: true,
-						},
-					}
-					*/
-
+					
 					this.bot.sendMessage(user_chat_id, `You can click below command for tips or solution: 
 						"/tips_${message_id}", "/solution_${message_id}"
 					`, options);
