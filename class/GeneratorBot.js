@@ -90,6 +90,8 @@ class GeneratorBot{
 					3a. [Required] "/solution" or "/tips_xxx" (xxx meaning specify coding problem id)
 					3b. [Optional] set specify programming language, ex: "/solution#javascript", "/solution#java".
 					--------------------------------------------------
+
+					This bot will collect your "username" and your "commands" for statistics and analysis.
 				`;
 
 				/*
